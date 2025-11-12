@@ -101,11 +101,36 @@ vjepa2/
 
 ```bash
 # 依存関係のインストール
-pip install torch torchvision timm einops
+pip install torch torchvision timm einops transformers
 
 # Jupyter Notebookを起動
 jupyter notebook vjepa2_imagenet_finetuning.ipynb
 ```
+
+### 3. 事前学習済み重みのロード方法
+
+V-JEPA 2の事前学習済みモデルは以下の方法でロードできます：
+
+#### 方法1: PyTorch Hub（推奨）
+
+```python
+import torch
+
+# 利用可能なモデル
+model = torch.hub.load('facebookresearch/vjepa2', 'vjepa2_vit_large', pretrained=True)  # ViT-L (300M)
+model = torch.hub.load('facebookresearch/vjepa2', 'vjepa2_vit_huge', pretrained=True)   # ViT-H (600M)
+model = torch.hub.load('facebookresearch/vjepa2', 'vjepa2_vit_giant', pretrained=True)  # ViT-g (1B)
+```
+
+#### 方法2: Hugging Face Hub
+
+```python
+from transformers import AutoModel
+
+model = AutoModel.from_pretrained('facebook/vjepa2-vit-large', trust_remote_code=True)
+```
+
+**注意**: ノートブックは自動的にこれらの方法を試行し、利用可能な方法で重みをロードします。
 
 ## 📊 主要な実装詳細
 
